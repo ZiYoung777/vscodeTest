@@ -1,33 +1,30 @@
 #include <vector>
 #include <iostream>
+#include <math.h>
 using namespace std;
 
-union A
-{
-    int a;
-    char b[4];
-};
-struct B
-{
-    int a=0x00000202;
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int N1=s.size(),N2=t.size();
+        if(N1<N2)
+        return false;
+        vector<vector<bool>> dp(N1,vector<bool>(N2,false));
+        dp[0][0]=(s[0]==t[0]);
+        for(int i=0;i<N1;++i){
+            for(int j=max(1,i);j<N2;++j){
+                if(s[i]==s[j])
+                dp[i][j]=(i==0)?true:dp[i-1][j-1];
+            }
+        }
+        return dp[N1-1][N2-1];
+    }
 };
 
-struct mybitfields
-{
-    unsigned short a : 4;
-    unsigned short b : 5;
-    unsigned short c : 7;
-} test;
 int main()
 {
-    int i,j,k;
-    A a;
-    a.a=0x01000000;
-    a.b[3]=0;
-    B b;
-    test.a = 2;
-    test.b = 3;
-    test.c = 0;
-    printf("%d,%d\n",i,a.a);
+    int a=1.50,b=1.5;
+    if(a=false)
+    cout<<(a=true);
     return 0;
 }
