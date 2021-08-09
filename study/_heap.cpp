@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 
 using namespace std;
 class heap{
@@ -13,6 +14,7 @@ public:
 public:
     heap();
     heap(int);
+    heap(const vector<int>&);
     ~heap();
 
     int getIndex(int);
@@ -31,6 +33,16 @@ heap::heap(int n){
     capacity=n;
 }
 
+heap::heap(const vector<int>& vec){
+    curSize=vec.size();
+    capacity=2*curSize;
+    heapPtr=new int[capacity];
+    memcpy(heapPtr,&vec[0],curSize*sizeof(int));
+    for(int i=(curSize+1)/2;i>=0;--i){
+        filterdown(i);
+    }
+}
+
 heap::~heap(){
     delete[] heapPtr;
 }
@@ -39,17 +51,12 @@ void heap::filterdown(int start){
     int cur=start;
     int next=2*cur+1;
     while(next<curSize){
-        if(heapPtr[cur]<heapPtr[next]){
-            swap(heapPtr[cur],heapPtr[next]);
-            cur=next;
-            next=2*cur+1;
-        }
-        else if(next+1<curSize && heapPtr[cur]<heapPtr[next+1]){
-            swap(heapPtr[cur],heapPtr[next+1]);
-            cur=next+1;
-            next=2*cur+1;
-        }
-        else break;
+        if(next+1<curSize&&heapPtr[next]<heapPtr[next+1])
+        ++next;
+        if(heapPtr[cur]>heapPtr[next])  break;
+        swap(heapPtr[cur],heapPtr[next]);
+        cur=next;
+        next=2*cur+1;
     }
 }
 
@@ -84,15 +91,9 @@ void heap::push(int newVal){
 
 
 int main(){
-    heap h(10);
-    h.push(9);
-    h.push(89);
-    h.push(3);
-    h.push(20);
-    h.push(20);
-    h.push(20);
-    h.push(20);
-    h.push(9);
+    vector<int> vec({1,9,7,4,5,9,28,64,7});
+    heap h(vec);
+    cout<<h.curSize<<","<<h.capacity<<endl;
     for(int i=0;i<8;++i){
         cout<<h.top()<<endl;
         h.pop();

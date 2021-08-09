@@ -1,7 +1,9 @@
 {
     "files.associations": {
         "vector": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string": "cpp",
+        "queue": "cpp"
     },
     "code-runner.runInTerminal": true
 }

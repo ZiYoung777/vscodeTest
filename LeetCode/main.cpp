@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 using namespace std;
 
 class Solution {
@@ -23,8 +24,9 @@ public:
 
 int main()
 {
-    int a=1.50,b=1.5;
-    if(a=false)
-    cout<<(a=true);
+    vector<int> b({1,2,3});
+
+    if(1)
+    cout<<*max_element(b.begin(),b.end());
     return 0;
 }
